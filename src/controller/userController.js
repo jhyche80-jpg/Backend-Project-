@@ -1,12 +1,14 @@
 require('dotenv').config()
 const User = require('../models/User')
 const { verification } = require('../utils/util')
+const jwt = require('jsonwebtoken')
+
 
 async function Register(req, res) {
     try {
         // validate 
         const { email, username, password } = req.body
-        if (!email | !password | !username) {
+        if (!email || !password || !username) {
             res.status(400).json({ message: " Fill out all fields" })
         }
         // check for the exisiting user 

@@ -69,7 +69,11 @@ async function Delete(req, res) {
             user: req.user._id
         })
         if (!task) {
-            return res.status(404).json({ message: "Unauthorized access or product does not exist" })
+            return res.status(404)
+                .json({
+                    success: false,
+                    message: "Unauthorized access or task does not exist"
+                })
         }
         await task.populate('user', 'username email')
             .populate('project', 'name description')
@@ -88,13 +92,19 @@ async function Update(req, res) {
             user: req.user._id
         }, req.body, { new: true, runValidators: true })
         if (!task) {
-            return res.status(404).json({ success: false, message: " Task is not found or you are not authorized to do this" })
+            return res.status(404).json({
+                success: false,
+                message: " Task is not found or you are not authorized to do this"
+            })
         }
         await task.populate('user', 'username email')
             .populate('project', 'name description')
         res.json({ success: true, task })
     } catch (error) {
-        res.status(500).json({ success: false, message: 'Failed to update task', details: error.message })
+        res.status(500).json({
+            success: false,
+            message: 'Failed to update task', details: error.message
+        })
     }
 }
 module.exports = { findAll, findOne, Update, Create, Delete }

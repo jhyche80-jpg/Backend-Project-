@@ -16,7 +16,7 @@ async function findOne(req, res) {
         if (!foundProject) {
             return res.status(404).json({ message: ' Project not found!' })
         }
-        res.status(201).json(foundProject)
+        res.json(foundProject)
 
     } catch (error) {
         res.status(500).json({ error: 'error finding the project', details: error.message })
@@ -64,7 +64,7 @@ async function Delete(req, res) {
 
 async function Update(req, res) {
     try {
-        const project = await Project.findOneAndUpdate({ _id: req.params.id, user: req.user._id }, req, body, { new: true, runValidators: true })
+        const project = await Project.findOneAndUpdate({ _id: req.params.id, user: req.user._id }, req.body, { new: true, runValidators: true })
         if (!project) {
             return res.status(404).json({ message: " Project is not found or you are not authorized to do this" })
         }
