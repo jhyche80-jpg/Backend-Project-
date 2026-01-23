@@ -64,14 +64,16 @@ async function Create(req, res) {
 
 async function Delete(req, res) {
     try {
-        const bookmark = await Bookmark.findOneAndDelete({
-            _id: req.params.id,
+        const task = await Task.findOneAndDelete({
+            _id: req.params.taskId,
             user: req.user._id
         })
-        if (!bookmark) {
+        if (!task) {
             return res.status(404).json({ message: "Unauthorized access or product does not exist" })
         }
-        res.json(bookmark)
+        await task.populate('user', 'username email')
+            .populate('project', 'name description')
+        res.json({ sussess: true, task })
 
     } catch (error) {
         res.status(500).json(error)
@@ -81,13 +83,18 @@ async function Delete(req, res) {
 
 async function Update(req, res) {
     try {
-        const bookmark = await Bookmark.findOneAndUpdate({ _id: req.params.id, user: req.user._id }, req, body, { new: true, runValidators: true })
-        if (!bookmark) {
-            return res.status(404).json({ message: " Bookmark is not found or you are not authorized to do this" })
+        const task = await Task.findOneAndUpdate({
+            _id: req.params.taskId,
+            user: req.user._id
+        }, req.body, { new: true, runValidators: true })
+        if (!task) {
+            return res.status(404).json({ success: false, message: " Task is not found or you are not authorized to do this" })
         }
-        res.json(bookmark)
+        await task.populate('user', 'username email')
+            .populate('project', 'name description')
+        res.json({ success: true, task })
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json({ success: false, message: 'Failed to update task', details: error.message })
     }
 }
 module.exports = { findAll, findOne, Update, Create, Delete }
