@@ -24,15 +24,12 @@ You are a junior backend developer at “Productivity Inc.,” a startup buildin
 This is a capstone project designed to synthesize the skills you have learned across multiple modules. You will plan and execute the development of a real-world, secure, and functional RESTful API from the ground up. Success will require careful planning, clean code, and a solid understanding of authentication and authorization principles
 ---
 ### Questions and Answers
-List important questions and answers that helped guide the build.
+1. When should I use populate?
+    - populate  tells mongoose  to replace the objectId with hte actual document from the referenced collection . 
+    - this makes it easier for the frontend  because it stops you from making extra api calls . it also improves readablity and reduces extra queries.
 
-Example:  
-Q: How should input be collected  
-A: Use a controlled form field  
-
-Q: How do I validate the data  
-A: Check input format and length  
-
+2.  When should i use .create() or .save() for mongoose 
+    - If you want to do extra task or manipulate or populate the information you should use save  
 
 ## Step by Step Plan
 1. Plan the project 
@@ -52,26 +49,20 @@ A: Check input format and length
 
 ## Troubleshooting
 
-Use a simple troubleshooting mindset.
-
-Ask yourself:  
-- What should happen right now  
-- What is actually happening  
-- Test one assumption at a time  
 
 ### Problems
-List specific problems you faced.
 
-1.  
-2.  
-3.  
+
+1.  I couldn;t get the Post register to work 
+2.  I was looking through my code and realized req.body isnt working right 
+3.  Routing issues 
 
 ### Solutions
 Explain how you solved each problem.
 
-1.  
-2.  
-3.  
+1.  Turns out the problem was with the function I made for startServer() it was reading the code somewhere else or something so i moved the function to the main code. 
+2.  in req.body  I separated the words by a comma not a period. 
+3.  I remade all the routing and check the code again for typos. 
 
 ---
 
