@@ -5,12 +5,12 @@ const { findAll, findOne, Update, Create, Delete } = require('../controller/proj
 // find all
 router.get('/tasks', findAll)
 // find one 
-router.get('/task/:taskId', findOne)
+router.get('tasks/:taskId', findOne)
 // update a product
-router.put('/task/:taskId', Update)
+router.put('/tasks/:taskId', Update)
 // create a product 
-router.post('/projects/:projectId/task', Create)
+router.post('/tasks', Create)
 // delete a product 
-router.delete('/task/:taskId', Delete)
+router.delete('/tasks/:taskId', Delete)
 
 module.exports = router

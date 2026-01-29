@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/projects', authMiddleware, projectRouter)
-app.use("/api", authMiddleware, taskRouter)
+app.use("/api/projects/:projectId/task", authMiddleware, taskRouter)
 
 async function startServer() {
     try {
